@@ -14,9 +14,10 @@ on:
   workflow_dispatch:
 
 jobs:
-  
+  build:
+    if: ${{ github.repository == 'wukongdaily/RunFilesBuilder' || github.event_name == 'workflow_dispatch' }}
+    runs-on: ubuntu-22.04
     
-
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3

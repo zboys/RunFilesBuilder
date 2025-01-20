@@ -2,7 +2,7 @@
 # RunFilesBuilder 
 <img src="https://img.shields.io/github/downloads/wukongdaily/RunFilesBuilder/total.svg?style=for-the-badge&color=32C955"/>  [![GitHub Release](https://img.shields.io/github/v/release/wukongdaily/RunFilesBuilder?style=for-the-badge&logoColor=green&color=%23E1A8CD)](https://github.com/wukongdaily/RunFilesBuilder/releases)
 
-【[ENGLISH](https://github.com/wukongdaily/RunFilesBuilder/blob/master/README.md)】
+【[ENGLISH](https://github.com/wukongdaily/RunFilesBuilder/blob/master/README_en.md)】
 
 >> 这是一个工作流。同步各位大佬项目里最新编译的ipk文件 生成适用于iStoreOS用的run自解压包<br>
 >> 本质上是利用makeslef,将ipk和shell文件打包成自解压程序。

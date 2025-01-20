@@ -2,7 +2,7 @@
 # RunFilesBuilder 
 <img src="https://img.shields.io/github/downloads/wukongdaily/RunFilesBuilder/total.svg?style=for-the-badge&color=32C955"/>  [![GitHub Release](https://img.shields.io/github/v/release/wukongdaily/RunFilesBuilder?style=for-the-badge&logoColor=green&color=%23E1A8CD)](https://github.com/wukongdaily/RunFilesBuilder/releases)
 
-【[查看中文](https://github.com/wukongdaily/RunFilesBuilder/raw/refs/heads/master/README.md)】The RunFilesBuilder project is a workflow tool designed to create self-extracting packages for iStoreOS, primarily using makeself to package IPK files (a package format for OpenWrt and similar systems) along with shell scripts into a single, self-extracting executable file. This makes it easier to install and deploy software packages on iStoreOS, a specialized OS based on OpenWrt.
+【[查看中文](https://github.com/wukongdaily/RunFilesBuilder/blob/master/README.md)】The RunFilesBuilder project is a workflow tool designed to create self-extracting packages for iStoreOS, primarily using makeself to package IPK files (a package format for OpenWrt and similar systems) along with shell scripts into a single, self-extracting executable file. This makes it easier to install and deploy software packages on iStoreOS, a specialized OS based on OpenWrt.
 
 The project primarily focuses on syncing the latest compiled IPK files from various repositories and automating the packaging process into these self-extracting run files. This workflow simplifies the process for developers and users to install or update software packages on systems running iStoreOS.
 

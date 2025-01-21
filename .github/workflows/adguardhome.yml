@@ -100,11 +100,11 @@ jobs:
         id: fetch_release_details
         run: |
           extra_content="![Github](https://img.shields.io/badge/AdGuardHome.run-123456?logo=github&logoColor=fff&labelColor=8470FF&style=for-the-badge) [![Github](https://img.shields.io/badge/国内加速站下载-FC7C0D?logo=github&logoColor=fff&labelColor=000&style=for-the-badge)](https://wkdaily.cpolar.top/archives/1) ![GitHub Downloads (all assets, specific tag)](https://img.shields.io/github/downloads/wukongdaily/RunFilesBuilder/${{ env.LATEST_TAG }}/total?style=for-the-badge&labelColor=black&color=%2325c2a0)"
-          sed -i "1i$extra_content" "${{ github.workspace }}/info.md"
+          sed -i "1i$extra_content" "${{ github.workspace }}/info1.md"
 
       - name: Print release notes
         run: |
-          cat ${{ github.workspace }}/info.md
+          cat ${{ github.workspace }}/info1.md
 
       - name: Upload run files as release assets
         uses: softprops/action-gh-release@v2.1.0
@@ -112,7 +112,7 @@ jobs:
           tag_name: AdGuardHome_${{ env.LATEST_TAG }}
           name: "AdGuardHome-${{ env.LATEST_TAG }}"
           files: makeself/AdGuardHome*.run
-          body_path: ${{ github.workspace }}/info.md
+          body_path: ${{ github.workspace }}/info1.md
           token: ${{ secrets.GITHUB_TOKEN }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

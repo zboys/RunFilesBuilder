@@ -63,13 +63,13 @@ jobs:
         run: | 
           TARGET_URL="https://dl.openwrt.ai/$PACKAGE_VERSION/x86_64/kiddin9/"
           FILE_PREFIX="luci-app-adguardhome"
-          
           curl -s "$TARGET_URL" | grep -oP "$FILE_PREFIX.*?\.ipk" | while read -r file; do
-              curl -o "AdGuardHome_aarch32/$file" "$TARGET_URL$file"
-              curl -o "AdGuardHome_aarch64/$file" "$TARGET_URL$file"
-              curl -o "AdGuardHome_x86_64/$file" "$TARGET_URL$file"
+              new_file_name=$(echo "$file" | sed 's/~/_/g')
+              curl -o "AdGuardHome_aarch32/$new_file_name" "$TARGET_URL$file"
+              curl -o "AdGuardHome_aarch64/$new_file_name" "$TARGET_URL$file"
+              curl -o "AdGuardHome_x86_64/$new_file_name" "$TARGET_URL$file"
+              ls AdGuardHome_aarch32/$new_file_name
           done
-          
       - name: Create install.sh scripts
         run: |
           cat <<EOF > AdGuardHome_x86_64/install.sh

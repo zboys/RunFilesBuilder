@@ -9,3 +9,8 @@
 wget -O xxx.run <run下载地址>
 sh xxx.run
 ```
+
+## run 文件名说明
+- _aarch32.run 代表32位ARM的机型 比如 玩客云等机型
+- _aarch64.run 代表64位ARM的机型 比如 瑞芯微rk3568等
+- _x86_64.run  代表64位通用型 比如工控机 电脑等

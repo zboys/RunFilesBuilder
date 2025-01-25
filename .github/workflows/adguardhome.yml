@@ -61,15 +61,34 @@ jobs:
 
       - name: Download luci-app-adguardhome IPK files
         run: | 
-          TARGET_URL="https://dl.openwrt.ai/$PACKAGE_VERSION/x86_64/kiddin9/"
-          FILE_PREFIX="luci-app-adguardhome"
-          curl -s "$TARGET_URL" | grep -oP "$FILE_PREFIX.*?\.ipk" | while read -r file; do
+          ARCHITECTURES=(
+          "AdGuardHome_aarch32=https://dl.openwrt.ai/$PACKAGE_VERSION/arm_cortex-a7/kiddin9/"
+          "AdGuardHome_aarch64=https://dl.openwrt.ai/$PACKAGE_VERSION/aarch64_cortex-a53/kiddin9/"
+          "AdGuardHome_x86_64=https://dl.openwrt.ai/$PACKAGE_VERSION/x86_64/kiddin9/")
+
+          # Process each architecture
+          for ARCH_MAPPING in "${ARCHITECTURES[@]}"; do
+              ARCH=$(echo "$ARCH_MAPPING" | cut -d= -f1)
+              TARGET_URL=$(echo "$ARCH_MAPPING" | cut -d= -f2)
+
+          # Ensure directories exist
+          mkdir -p "$ARCH/depends"
+
+          # Download luci-app-adguardhome ipk to the architecture folder
+            curl -s "$TARGET_URL" | grep -oP "luci-app-adguardhome.*?\.ipk" | while read -r file; do
               new_file_name=$(echo "$file" | sed 's/~/_/g')
-              curl -o "AdGuardHome_aarch32/$new_file_name" "$TARGET_URL$file"
-              curl -o "AdGuardHome_aarch64/$new_file_name" "$TARGET_URL$file"
-              curl -o "AdGuardHome_x86_64/$new_file_name" "$TARGET_URL$file"
-              ls AdGuardHome_aarch32/$new_file_name
+              curl -o "$ARCH/$new_file_name" "$TARGET_URL$file"
+              ls "$ARCH/$new_file_name"
+            done
+
+          # Download adguardhome core ipk (but not luci-app-adguardhome) to the depends folder
+            curl -s "$TARGET_URL" | grep -oP "(?<!luci-app-)adguardhome.*?\.ipk" | while read -r file; do
+              new_file_name=$(echo "$file" | sed 's/~/_/g')
+              curl -o "$ARCH/depends/$new_file_name" "$TARGET_URL$file"
+              ls "$ARCH/depends/$new_file_name"
+            done
           done
+        
       - name: Create install.sh scripts
         run: |
           cat <<EOF > AdGuardHome_x86_64/install.sh
@@ -79,7 +98,11 @@ jobs:
               echo "update failed。"
               exit 1
           fi
+          # install AdGuardHome Core IPK
+          opkg install depends/*.ipk
+          # install luci-app-adguardhome IPK
           opkg install *.ipk
+          # update latest AdGuardHome Core
           cp AdGuardHome/AdGuardHome /usr/bin/AdGuardHome
           chmod +x /usr/bin/AdGuardHome
           EOF

@@ -8,8 +8,8 @@
 
 > Like This
 ```bash
-wget -O mihomo.run https://github.com/wukongdaily/RunFilesBuilder/releases/download/v1.17.1/mihomo_v1.17.1_x86_64.run
-sh mihomo.run
+wget -O nikki.run https://github.com/wukongdaily/RunFilesBuilder/releases/download/v1.17.5/nikki_v1.17.5_x86_64.run
+sh nikki.run
 ```
 
 

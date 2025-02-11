@@ -2,8 +2,8 @@
 <img src=https://camo.githubusercontent.com/0a783d7ece59c727a1eef024855606c2b87be6acec14192e8103cf8c601d44eb/68747470733a2f2f63646e2e6a7364656c6976722e6e65742f67682f41554b393532372f4172652d752d6f6b406d61737465722f617070732f696e7374616c6c2e706e67>
 
 
-## 通过命令行安装
-> 类似这样操作 先下载run 在执行
+## 其它OpenWrt 比如ImmortalWrt 可通过命令行安装
+> 类似这样操作 先下载run 再执行
 ```bash
 wget -O xxx.run <run下载地址>
 sh xxx.run
@@ -16,7 +16,7 @@ sh xxx.run
 ## 项目简介
 【[ENGLISH](https://github.com/wukongdaily/RunFilesBuilder/blob/master/README_en.md)】
 
->> 这是一个工作流。同步各位大佬项目里最新编译的ipk文件 生成适用于iStoreOS/OpenWrt 用的run自解压包<br>
+>> 这是一个工作流。同步各位大佬项目里最新编译的ipk文件 生成适用于iStoreOS/ImmortalWrt 用的run自解压包<br>
 >> 本质上是利用makeslef,将ipk和shell文件打包成自解压程序。<br>
 >> iStoreOS 可以在iStore商店手动安装<br>
 >> ImmortalWrt 可下载后 使用 `sh xxx.run `来安装

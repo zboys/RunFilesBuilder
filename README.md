@@ -35,3 +35,9 @@ wget -O xxx.run <run下载地址>
 sh xxx.run
 ```
 
+## Immortalwrt 如何安装iStore商店
+```
+wget -qO imm.sh https://cafe.cpolar.top/wkdaily/zero3/raw/branch/main/zero3/imm.sh && chmod +x imm.sh && ./imm.sh
+
+```
+

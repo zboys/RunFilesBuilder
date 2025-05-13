@@ -189,8 +189,8 @@ jobs:
   
       - name: Create self-extracting archives
         run: |
-            mv -f x86_64 makeself
-            mv -f a53 makeself
+            mv -f x86_64 makeself/
+            mv -f a53 makeself/
             cd makeself
             ipk_file=$(ls x86_64/*.ipk)
             appversion=$(basename "$ipk_file" | grep -oP '\d+\.\d+\.\d+')

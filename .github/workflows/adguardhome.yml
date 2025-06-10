@@ -77,6 +77,7 @@ jobs:
               curl -o "$ARCH/$new_file_name" "https://github.com/wukongdaily/RunFilesBuilder/releases/download/AdGuardHome_v0.107.55/luci-app-adguardhome-all.ipk"
               ls "$ARCH/$new_file_name"
             done
+          done
         
       - name: Create install.sh scripts
         run: |

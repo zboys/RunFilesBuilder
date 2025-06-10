@@ -66,19 +66,21 @@ jobs:
           "AdGuardHome_aarch64=https://dl.openwrt.ai/$PACKAGE_VERSION/aarch64_cortex-a53/kiddin9/"
           "AdGuardHome_x86_64=https://dl.openwrt.ai/$PACKAGE_VERSION/x86_64/kiddin9/")
 
-          # Process each architecture
           for ARCH_MAPPING in "${ARCHITECTURES[@]}"; do
-              ARCH=$(echo "$ARCH_MAPPING" | cut -d= -f1)
-              TARGET_URL=$(echo "$ARCH_MAPPING" | cut -d= -f2)
+            ARCH=$(echo "$ARCH_MAPPING" | cut -d= -f1)
+            TARGET_URL=$(echo "$ARCH_MAPPING" | cut -d= -f2)
+            mkdir -p "$ARCH"
 
-          # Download luci-app-adguardhome ipk to the architecture folder
-            curl -s "$TARGET_URL" | grep -oP "luci-app-adguardhome.*?\.ipk" | while read -r file; do
-              new_file_name=$(echo "$file" | sed 's/~/_/g')
-              curl -o "$ARCH/$new_file_name" "https://github.com/wukongdaily/RunFilesBuilder/releases/download/AdGuardHome_v0.107.55/luci-app-adguardhome-all.ipk"
-              ls "$ARCH/$new_file_name"
-            done
+          # 下载固定的 luci-app-adguardhome-all.ipk 到该目录 这版本luci界面最好用 而且每次变化的仅仅是内核
+            curl -L -o "$ARCH/luci-app-adguardhome-all.ipk" \
+              "https://github.com/wukongdaily/RunFilesBuilder/releases/download/AdGuardHome_v0.107.55/luci-app-adguardhome-all.ipk"
+
+            echo "==> Downloaded for $ARCH:"
+            ls -lh "$ARCH/luci-app-adguardhome-all.ipk"
+            file "$ARCH/luci-app-adguardhome-all.ipk"
+            echo ""
           done
-        
+ 
       - name: Create install.sh scripts
         run: |
           cat <<EOF > AdGuardHome_x86_64/install.sh

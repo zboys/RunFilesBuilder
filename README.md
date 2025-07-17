@@ -14,16 +14,8 @@
 ## 实现原理和操作指南
 [![操作步骤](https://img.shields.io/badge/YouTube-123456?logo=youtube&labelColor=ff0000)](https://youtu.be/o0TN8LV01i4) https://www.youtube.com/watch?v=o0TN8LV01i4
 
-## 鸣谢项目
-> 【打包】https://github.com/megastep/makeself
-> > 【引用】https://github.com/xiaorouji/openwrt-passwall<br>
-> > 【引用】https://github.com/vernesong/OpenClash<br>
-> > 【引用】https://dl.openwrt.ai<br>
-> > 【引用】https://github.com/morytyann/OpenWrt-mihomo/wiki<br>
-> > 【引用】https://github.com/AdguardTeam/AdGuardHome/releases/latest<br>
-> > 【引用】https://github.com/sbwml/luci-app-mosdns
-> > > 【原理解析】https://wkdaily.cpolar.top/archives/makerun
-
+## 原理解析
+https://wkdaily.cpolar.cn/archives/makerun
 ## run文件安装方法
 ## Install by iStore 
 <img src=https://camo.githubusercontent.com/0a783d7ece59c727a1eef024855606c2b87be6acec14192e8103cf8c601d44eb/68747470733a2f2f63646e2e6a7364656c6976722e6e65742f67682f41554b393532372f4172652d752d6f6b406d61737465722f617070732f696e7374616c6c2e706e67>
@@ -46,7 +38,16 @@ wget -qO imm.sh https://cafe.cpolar.top/wkdaily/zero3/raw/branch/main/zero3/imm.
 
 [![赞助我](https://img.shields.io/badge/赞助我-支持作者的项目-orange?logo=github)](https://wkdaily.cpolar.top/01)
 
-
-
+<details>
+<summary><h2>🍭鸣谢和引用的项目 👇🏿</h2></summary>
+  
+> 【打包】https://github.com/megastep/makeself
+> > 【引用】https://github.com/xiaorouji/openwrt-passwall<br>
+> > 【引用】https://github.com/xiaorouji/openwrt-passwall2<br>
+> > 【引用】https://github.com/vernesong/OpenClash<br>
+> > 【引用】https://dl.openwrt.ai<br>
+> > 【引用】https://github.com/morytyann/OpenWrt-mihomo/wiki<br>
+> > 【引用】https://github.com/AdguardTeam/AdGuardHome/releases/latest<br>
+> > 【引用】https://github.com/sbwml/luci-app-mosdns
 
 

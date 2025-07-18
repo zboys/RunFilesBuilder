@@ -1,4 +1,11 @@
-name: Build Dufs Self-Extracting Package
+#=================================================
+# https://github.com/wukongdaily/RunFilesBuilder
+# Description: Build RunFiles using GitHub Actions
+# Lisence: MIT
+# Author: wukongdaily
+# Blog: wkdaily.cpolar.cn
+#=================================================
+name: Make Dufs run files
 
 on:
   workflow_dispatch:

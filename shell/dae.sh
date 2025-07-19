@@ -10,7 +10,7 @@ declare -A PLATFORMS=(
 declare -A PACKAGE_SOURCES=(
   ["luci-app-dae"]="luci"
   ["luci-i18n-dae-zh-cn"]="luci"
-  ["dae"]="packages"
+  ["dae_"]="packages"
   ["dae-geoip"]="packages"
   ["dae-geosite"]="packages"
 )

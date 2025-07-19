@@ -39,7 +39,7 @@ jobs:
 
           # 获取版本
           ARGON_IPK=$(ls aarch64_generic/luci-theme-argon_*.ipk | head -n 1)
-          VERSION=$(basename "$ARGON_IPK" | sed -n 's/^argon_\([^-]*-[^_]*\)_.*$/\1/p')
+          VERSION=$(basename "$ARGON_IPK" | sed -n 's/^luci-theme-argon_\([^-]*-[^_]*\)_.*$/\1/p')
 
           if [ -z "$VERSION" ]; then
             echo "❌ 无法提取版本号"

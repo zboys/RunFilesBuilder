@@ -54,11 +54,16 @@ jobs:
               "homeproxy ${PLATFORM} Installer v${VERSION}" ./install.sh
           done
 
+          RAW_VERSION="${{ steps.pack.outputs.version }}"
+          CLEAN_VERSION="${RAW_VERSION%%~*}"
+          echo "cleaned_version=$CLEAN_VERSION" >> "$GITHUB_OUTPUT"
+
+
       - name: 📤 上传 .run 文件到 release
         uses: softprops/action-gh-release@v2.1.0
         with:
-          tag_name: "homeproxy-${{ steps.pack.outputs.version }}"
-          name: "homeproxy-${{ steps.pack.outputs.version }}"
+          tag_name: "homeproxy-${{ steps.clean_version.outputs.cleaned_version }}"
+          name: "homeproxy-${{ steps.clean_version.outputs.cleaned_version }}"
           body_path: ${{ github.workspace }}/info/homeproxy.md
           files: output/*.run
           token: ${{ secrets.GITHUB_TOKEN }}

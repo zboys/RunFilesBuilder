@@ -38,7 +38,7 @@ jobs:
           mkdir -p output
 
           # 获取版本
-          APP_IPK=$(ls aarch64_generic/homeproxy_*.ipk | head -n 1)
+          APP_IPK=$(ls aarch64_generic/luci-app-homeproxy_*.ipk | head -n 1)
           VERSION=$(basename "$APP_IPK" | sed -n 's/^luci-app-homeproxy_\([^-]*-[^_]*\)_.*$/\1/p')
 
           if [ -z "$VERSION" ]; then

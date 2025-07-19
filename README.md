@@ -4,7 +4,8 @@
 ![Github](https://img.shields.io/badge/SSRP.run-123456?logo=github&logoColor=fff&labelColor=blue&style=for-the-badge) <br> 
 ![Github](https://img.shields.io/badge/nikki.run-123456?logo=github&logoColor=fff&labelColor=yellow&style=for-the-badge) 
 ![Github](https://img.shields.io/badge/MOSDNS.run-123456?logo=github&logoColor=fff&labelColor=FF7F00&style=for-the-badge) 
-![Github](https://img.shields.io/badge/homeproxy.run-123456?logo=github&logoColor=fff&labelColor=3ae07c&style=for-the-badge)<br>
+![Github](https://img.shields.io/badge/homeproxy.run-123456?logo=github&logoColor=fff&labelColor=3ae07c&style=for-the-badge)
+![Github](https://img.shields.io/badge/dae.run-123456?logo=github&logoColor=fff&labelColor=4bccdf&style=for-the-badge)<br>
 ![Github](https://img.shields.io/badge/AdGuardHome.run-123456?logo=github&logoColor=fff&labelColor=8470FF&style=for-the-badge) 
 ![Github](https://img.shields.io/badge/STORE商店.run-123456?logo=github&logoColor=fff&labelColor=9400D3&style=for-the-badge) 
 ![Github](https://img.shields.io/badge/ARGON主题.run-123456?logo=github&logoColor=fff&labelColor=1E90FF&style=for-the-badge) 

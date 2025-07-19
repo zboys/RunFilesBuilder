@@ -39,7 +39,7 @@ jobs:
 
           # 获取版本
           APP_IPK=$(ls aarch64_generic/luci-app-dae_*.ipk | head -n 1)
-          VERSION=$(basename "$APP_IPK" | sed -n 's/^luci-app-dae_\([^-]*-[^_]*\)_.*$/\1/p')
+          VERSION=$(basename "$APP_IPK" | sed -n 's/^luci-app-dae_\(.*\)_all\.ipk$/\1/p')
 
           if [ -z "$VERSION" ]; then
             echo "❌ 无法提取版本号"

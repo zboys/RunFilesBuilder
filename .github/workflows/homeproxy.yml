@@ -29,7 +29,7 @@ jobs:
       - name: 📋 拷贝 install.sh 到各平台目录
         run: |
           chmod +x shell/install.sh
-          cp shell/install.sh x86_64/ aarch64_generic/ aarch64_cortex-a53/
+          cp shell/install.sh {x86_64,aarch64_generic,aarch64_cortex-a53}/
 
       - name: 🔍 提取版本号并打包
         id: pack

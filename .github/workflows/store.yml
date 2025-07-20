@@ -48,7 +48,7 @@ jobs:
           echo "version=$VERSION" >> $GITHUB_OUTPUT
 
           # 打包成 .run
-          makeself --notemp store "output/luci-app-store-${VERSION}_all.run" \
+          makeself store "output/luci-app-store-${VERSION}_all.run" \
             "iStore Installer v${VERSION}" ./install.sh
 
       - name: 📤 上传 .run 文件到 release

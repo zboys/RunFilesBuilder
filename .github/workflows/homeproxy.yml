@@ -53,7 +53,7 @@ jobs:
 
           # 打包各个平台
           for PLATFORM in x86_64 aarch64_generic aarch64_cortex-a53; do
-            makeself --notemp "$PLATFORM" "output/luci-app-homeproxy-${VERSION}_${PLATFORM}.run" \
+            makeself "$PLATFORM" "output/luci-app-homeproxy-${VERSION}_${PLATFORM}.run" \
               "homeproxy ${PLATFORM} Installer v${VERSION}" ./install.sh
           done
 

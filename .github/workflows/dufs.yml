@@ -28,9 +28,10 @@ jobs:
 
       - name: 📋 拷贝 install.sh 到各平台目录
         run: |
+          chmod +x shell/install.sh
           cp shell/install.sh x86_64/install.sh
           cp shell/install.sh aarch64_generic/install.sh
-          chmod +x x86_64/install.sh aarch64_generic/install.sh
+          cp shell/install.sh aarch64_cortex-a53/install.sh
 
       - name: 🔍 提取版本号并打包
         id: pack
@@ -50,7 +51,7 @@ jobs:
 
           # 打包两个平台
           for PLATFORM in x86_64 aarch64_generic aarch64_cortex-a53; do
-            makeself --notemp "$PLATFORM" "output/dufs-${VERSION}_${PLATFORM}.run" \
+            makeself "$PLATFORM" "output/dufs-${VERSION}_${PLATFORM}.run" \
               "Dufs ${PLATFORM} Installer v${VERSION}" ./install.sh
           done
 

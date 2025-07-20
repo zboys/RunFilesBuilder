@@ -4,6 +4,7 @@
 declare -A PLATFORMS=(
   ["x86_64"]="https://downloads.immortalwrt.org/releases/24.10.2/packages/x86_64"
   ["aarch64_generic"]="https://downloads.immortalwrt.org/releases/24.10.2/packages/aarch64_generic"
+  ["aarch64_cortex-a53"]="https://downloads.immortalwrt.org/releases/24.10.2/packages/aarch64_cortex-a53"
 )
 
 # 各类包对应的目录
@@ -52,4 +53,4 @@ for platform in "${!PLATFORMS[@]}"; do
   done
 done
 
-echo "✅ 下载完成，文件已分别存入 x86_64/ 与 aarch64_generic/ 目录中。"
+echo "✅ 下载完成，文件已分别存入 各自目录中。"

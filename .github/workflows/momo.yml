@@ -123,7 +123,7 @@ jobs:
           tag_name: ${{ env.LATEST_TAG }}
           target_commitish: ${{ github.ref_name }}
           prerelease: false
-          body_path: ${{ github.workspace }}/info.md
+          body_path: ${{ github.workspace }}/momo.md
 
       - name: Upload run files as release assets
         uses: softprops/action-gh-release@v2.1.0

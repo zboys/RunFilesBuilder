@@ -3,13 +3,11 @@
 # Description: Build RunFiles using GitHub Actions
 # Lisence: MIT
 # Author: wukongdaily
-# Blog: wkdaily.cpolar.top
+# Blog: wkdaily.cpolar.cn
 #=================================================
 name: Make ShadowsocksPlus+ run files
 
 on:
-  schedule:
-    - cron: '0 */6 * * *'
   workflow_dispatch:
     inputs:
       package_version:
@@ -19,17 +17,26 @@ on:
 
 jobs:
   build:
-    if: ${{ github.repository == 'wukongdaily/RunFilesBuilder' || github.event_name == 'workflow_dispatch' }}
-    runs-on: ubuntu-22.04
-    
-
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v2
-
-      - name: Clone makeself repo
+        uses: actions/checkout@v3
+      
+      - name: Clone luci-app-ssr-plus
         run: |
-          git clone https://github.com/megastep/makeself.git
+          git clone --depth=1 https://github.com/kiddin9/kwrt-packages.git
+          ls kwrt-packages/luci-app-ssr-plus/
+      - name: Parse version from Makefile
+        id: setver
+        run: |
+          cd kwrt-packages/luci-app-ssr-plus
+          ver=$(grep -E '^PKG_VERSION:=' Makefile | cut -d= -f2 | tr -d ' ')
+          rel=$(grep -E '^PKG_RELEASE:=' Makefile | cut -d= -f2 | tr -d ' ')
+          fullver="${ver}-r${rel}"
+          echo "ssrp_version=$fullver" >> $GITHUB_ENV
+    
+
+      - name: Show version
+        run: echo "版本号是：${ssrp_version}"
 
       - name: Create directories for x86_64 and a53 and set PACKAGE_VERSION
         run: |
@@ -39,13 +46,13 @@ jobs:
             package_version="packages-24.10"
           fi
           echo "PACKAGE_VERSION=$package_version" >> $GITHUB_ENV
-         
-
+          wget -O x86_64/depends/libopenssl3.ipk https://github.com/wkccd/build/releases/download/pw1/libopenssl3_3.0.16-1_x86_64.ipk
+          wget -O a53/depends/libopenssl3.ipk https://github.com/wkccd/build/releases/download/pw1/libopenssl3_3.0.16-1_aarch64_cortex-a53.ipk
       - name: Download ipk files for x86_64 and a53
         run: |
           echo "Get PACKAGE_VERSION=$PACKAGE_VERSION"
           
-          FILE_PREFIXES=("dns2tcp" "lua-neturl" "chinadns-ng" "dns2socks" "hysteria" "ipt2socks" "microsocks" "mosdns" "naiveproxy" "redsocks2" "shadowsocksr-libev" "shadowsocks-rust" "shadow-tls" "simple-obfs-client" "tcping" "trojan" "tuic-client" "v2ray-plugin" "xray-core" "luci-app-ssr-plus")
+          FILE_PREFIXES=("shadowsocks-libev-ss-server" "dns2tcp" "lua-neturl" "chinadns-ng" "dns2socks" "hysteria" "ipt2socks" "microsocks" "mosdns" "naiveproxy" "redsocks2" "shadowsocksr-libev" "shadowsocks-rust" "shadow-tls" "simple-obfs-client" "tcping" "trojan" "tuic-client" "v2ray-plugin" "xray-core" "luci-app-ssr-plus")
           EXCLUDE_PREFIXES=("luci-app-chinadns-ng" "luci-app-microsocks" "luci-app-mosdns" "luci-app-naiveproxy" "luci-app-redsocks2" "luci-app-shadowsocks")
           
           BASE_URL_X86="https://dl.openwrt.ai/$PACKAGE_VERSION/x86_64/kiddin9/"
@@ -76,7 +83,6 @@ jobs:
                     fi
               done
           done
-
           BASE_URL_A53="https://dl.openwrt.ai/$PACKAGE_VERSION/aarch64_cortex-a53/kiddin9/"
           echo "Fetching a53 directory page from $BASE_URL_A53"
           wget -qO- "$BASE_URL_A53" | \
@@ -175,46 +181,50 @@ jobs:
                     fi
               done
           done
-
       - name: List depends ipks
         run: |
           echo "List x86 depends ipk files"
+          rm x86_64/depends/luci-app-trojan-server*
           ls -lh x86_64/depends/
           echo "List a53 depends ipk files"
+          rm a53/depends/luci-app-trojan-server*
           ls -lh a53/depends/
-          mv x86_64/depends/luci-app-ssr-plus*.ipk x86_64
-          mv a53/depends/luci-app-ssr-plus*.ipk a53
+          mv x86_64/depends/luci-app-ssr-plus*.ipk x86_64/
+          mv a53/depends/luci-app-ssr-plus*.ipk a53/
+          echo "查看a53目录"
+          ls a53/
+          echo "查看x86_64目录"
+          ls x86_64/
       
       - name: Create install.sh 
         run: |
             echo -e "#!/bin/sh\n\nopkg update\nif [ \$? -ne 0 ]; then\n    echo \"update failed\"\n    exit 1\nfi\nopkg install depends/*.ipk --force-depends\nopkg install *.ipk --force-depends" > x86_64/install.sh
             chmod +x x86_64/install.sh
             cp x86_64/install.sh a53/
-  
+      - name: Clone makeself repo
+        run: |
+          git clone https://github.com/megastep/makeself.git
+      - name: Change Dir
+        run: |
+            mv -f x86_64/ makeself/
+            mv -f a53/ makeself/
+            echo "移动后再查看makeself/的文件"
+            ls -lah makeself/
+      
       - name: Create self-extracting archives
         run: |
-            mv -f x86_64 makeself
-            mv -f a53 makeself
             cd makeself
-            ipk_file=$(ls x86_64/*.ipk)
-            appversion=$(basename "$ipk_file" | grep -oP '\d+\.\d+\.\d+')
-            echo "APP_VERSION=$appversion" >> $GITHUB_ENV
-            release_name=$(TZ="Asia/Shanghai" date +'%Y-%m-%d %H:%M Build')
-            echo "RELEASE_NAME=$release_name" >> $GITHUB_ENV
-            ./makeself.sh x86_64/ ssrp_x86_64_$appversion.run "by github action" ./install.sh
-            ./makeself.sh a53/ ssrp_aarch64_cortex-a53_$appversion.run "by github action" ./install.sh
-            
-            
+            ./makeself.sh x86_64/ ssrp_x86_64-${ssrp_version}.run "by github action" ./install.sh
+            ./makeself.sh a53/ ssrp_aarch64_cortex-a53-${ssrp_version}.run "by github action" ./install.sh
+                
       
       - name: Upload all .run files to GitHub Release
         uses: softprops/action-gh-release@v2.1.0
         with:
-          tag_name: ${{ env.APP_VERSION }}
-          name: ${{ env.RELEASE_NAME }}
-          body: "![Github](https://img.shields.io/badge/SSRP.run-123456?logo=github&logoColor=fff&labelColor=blue&style=for-the-badge) [![Github](https://img.shields.io/badge/国内加速站下载-FC7C0D?logo=github&logoColor=fff&labelColor=000&style=for-the-badge)](https://wkdaily.cpolar.top/archives/1) ![GitHub Downloads (all assets, specific tag)](https://img.shields.io/github/downloads/wukongdaily/RunFilesBuilder/${{ env.APP_VERSION }}/total?style=for-the-badge&labelColor=black&color=%2325c2a0)"
+          tag_name: "ShadowsocksPlus+"
+          name: SSRP-${{ env.ssrp_version }}
+          body: "![Github](https://img.shields.io/badge/SSRP.run-123456?logo=github&logoColor=fff&labelColor=blue&style=for-the-badge) [![Github](https://img.shields.io/badge/国内加速站下载-FC7C0D?logo=github&logoColor=fff&labelColor=000&style=for-the-badge)](https://wkdaily.cpolar.cn/archives/1) ![GitHub Downloads (all assets, specific tag)](https://img.shields.io/github/downloads/wukongdaily/RunFilesBuilder/ShadowsocksPlus%2B/total?style=for-the-badge&labelColor=black&color=%2325c2a0)"
           files: makeself/*.run
           token: ${{ secrets.GITHUB_TOKEN }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-   
